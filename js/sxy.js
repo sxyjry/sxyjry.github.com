@@ -9,8 +9,6 @@ bReady(function(){
 		var aLi_foot=getTag($('footNav'),'li');//底部的导航
 		var count=0  //滚屏的页数
 		var timer1=null; //鼠标滚动的定时器
-		var nowIndex=0;
-		var nextorprevIndex=0;
 		function setH(){
 			for(var i=0;i<aPage.length;i++){
 				aPage[i].style.height=vH+'px';
@@ -23,16 +21,19 @@ bReady(function(){
 			vH=viewH();
 			oBox.style.top = -vH*count+"px";
 		}
-		
+	
 	//侧边栏小按钮点击事件
 	function tab(){
 		move(oBox,{top: -count*vH},{time:800,type:'easeIn'});
         for(var j=0;j<asdLi.length;j++){
 			removeClass(asdLi[j],'active');
 			removeClass(aLi_foot[j],'active');
+			pageEvent[count].outAn()
         }
         addClass(asdLi[count],'active');
 		addClass(aLi_foot[count],'active');
+		pageEvent[count].inAn()
+		
 	};
     function clickSlide(arr){
         for(var i=0;i<arr.length;i++){
@@ -59,15 +60,13 @@ bReady(function(){
 			 if(down){
 				  count--;
 				  count=(count<0)?0:count;
-				  nowIndex=count;
-				  nextorprevIndex = nowIndex == 0 ? asdLi.length-1 : nowIndex - 1;
-				
+				   if(pageEvent[count+1])pageEvent[count+1].outAn()
+                	if(pageEvent[count])pageEvent[count].inAn()
 			  }else{
 				  count++;
 				  count=(count==asdLi.length)?asdLi.length-1:count;
-				  nowIndex=count;
-				  nextorprevIndex = nowIndex == asdLi.length-1 ? 0 : nowIndex + 1;
-				  
+				  if(pageEvent[count-1])pageEvent[count-1].outAn()
+                if(pageEvent[count])pageEvent[count].inAn()
 			  }
 			  tab();
 	});
@@ -541,126 +540,128 @@ function move3(obj,iTarget){
 //分块运动
 
 /*每一屏的入场出场动画*/
-var $item=getByClass('item');
-var cjAnimate = [
-		{
 
-			inAn: function() {
-				$("#artical3").find('li').each(function(i, v) {
-					$(v).css({
-						opacity: 1,
-						animation: 'flipInX 0.8s ease-in ' + i * 0.8 + 's backwards'
-					});
-				})
-			},
-			outAn: function() {
-				$("#artical3").find('li').css({
-					opacity: 0,
-					animation: ''
-				});
-			}
-		},
-		{
-			inAn : function(){
-				var $liChild = $li.eq(1).find('li');
-				$liChild.attr('class','');
-				$liChild.css('transform','rotate(720deg)');
-				$liChild.css('transition','1s');
-			},
-			outAn : function(){
-				var $liChild = $li.eq(1).find('li');
-				$liChild.css('transform','rotate(0)');
-				$liChild.css('transition','');
-				$liChild.attr('class','active');
-			}
-		},
-		{
-			inAn : function(){
-				var $divChild = $li.eq(2).find('div');
-				$divChild.css('transform','rotateY(360deg)');
-				$divChild.css('transition','1s');
-			},
-			outAn : function(){
-				var $divChild = $li.eq(2).find('div');
-				$divChild.css('transform','rotateY(0)');
-				$divChild.css('transition','');
-			}
-		},
-		{
-			inAn : function(){
-				var $liChild = $li.eq(3).find('li');
-				$liChild.css('transition','1s');
-				$liChild.attr('class','');
-			},
-			outAn : function(){
-				var $liChild = $li.eq(3).find('li');
-				$liChild.css('transition','');
-				$liChild.attr('class','active');
-			}
-		},
-		{
-			inAn : function(){
-				var $liChild = $li.eq(4).find('div');
-				$liChild.css('transition','1s');
-				$liChild.css('transform','translate(0,0px) scale(0.8,0.8)');
-				$liChild.attr('class','');
-			},
-			outAn : function(){
-				var $liChild = $li.eq(4).find('div');
-				$liChild.css('transition','');
-				$liChild.css('transform','translate(100px,200px) scale(1,1)');
-				$liChild.attr('class','active');
-			}
-		},
-		{
-			inAn : function(){
-				var $liChild = $li.eq(5).find('div');
-				$liChild.css('transition','1s');
-				$liChild.css('transform','scale(1,1)');
-				$liChild.attr('class','');
-			},
-			outAn : function(){
-				var $liChild = $li.eq(5).find('div');
-				$liChild.css('transition','');
-				$liChild.css('transform','scale(-1,-1)');
-				$liChild.attr('class','active');
-			}
-		},
-		{
-			inAn : function(){
-				var $liChild = $li.eq(6).find('div');
-				$liChild.css('transition','1s');
-				$liChild.css('transform','translate(0,0px) scale(1,1)');
-				$liChild.attr('class','');
-			},
-			outAn : function(){
-				var $liChild = $li.eq(6).find('div');
-				$liChild.css('transition','');
-			$liChild.css('transform','translate(0,-200px) scale(-1,1)');
-				$liChild.attr('class','active');
-			}
-		},
-		{
-			inAn : function(){
-				var $liChild = $li.eq(7).find('div');
-				$liChild.css('transition','1s');
-				$liChild.css('transform','translate(0,0) skewY(-10deg)');
-				$liChild.attr('class','');
-			},
-			outAn : function(){
-				var $liChild = $li.eq(7).find('div');
-				$liChild.css('transition','');
-				$liChild.css('transform','translate(0px,200px) skewY(20deg)');
-				$liChild.attr('class','active');
-			}
-		}
-	];
-	
-cjAnimate[0].outAn();	
-for( var i=0;i<cjAnimate.length;i++){
-	cjAnimate[i].outAn();
-}	
-	
+var pageEvent = [
+            {
+                inAn:function(){
+                    var $aLi=$("item1").children;
+                     setTimeout(function(){
+                        setCss3($aLi[0],{transition:"1s","transform":"translate(0,0)","opacity":1})
+                        setCss3($aLi[1],{transition:"1s","transform":"translate(0,0)","opacity":1})
+ 					},1000)
+                },
+                outAn:function(){
+                    var  $aLi=$("item1").children;
+                  
+					  setTimeout(function(){
+                         setCss3($aLi[0],{transition:"1s","transform":"translate(0,-200px)","opacity":0})
+                        setCss3($aLi[1],{transition:"1s","transform":"translate(0,200px)","opacity":0})
+                    },1000)
+                   
+                }
+            },
+			 {
+                inAn:function(){
+                    var $aLi=$("item2").children;
+                     setTimeout(function(){
+                        setCss3($aLi[0],{transition:"1s","transform":"rotate(0)"})
+						setCss3($aLi[1],{transition:"1s","transform":"scale(1,1)"})
+                        setCss3($aLi[2],{transition:"1s","transform":"rotate(0)"})
+ 					},1000)
+                },
+                outAn:function(){
+                    var  $aLi=$("item2").children;
+                  
+					  setTimeout(function(){
+                         setCss3($aLi[0],{transition:"1s","transform":"rotate(-30deg)"})
+						 setCss3($aLi[1],{transition:"1s","transform":"scale(1,-1)"})
+                        setCss3($aLi[2],{transition:"1s","transform":"rotate(30deg)"})
+                    },1000)
+                   
+                }
+            },
+			{
+                inAn:function(){
+                    var $aLi=$("show3").children;
+                     setTimeout(function(){
+						 for(var i=0;i<$aLi.length;i++){
+							setCss3($aLi[i],{transition:"1s","transform":"translate(0,0)"}) 
+						}
+                  
+ 					},1000)
+                },
+                outAn:function(){
+                    var  $aLi=$("show3").children;
+                  
+					  setTimeout(function(){
+                        setCss3($aLi[0],{transition:"1s","transform":"translate(-500px,-500px)"})
+						setCss3($aLi[1],{transition:"1s","transform":"translate(500px,-500px)"})
+                        setCss3($aLi[2],{transition:"1s","transform":"translate(-500px,500px)"})
+						setCss3($aLi[3],{transition:"1s","transform":"translate(500px,500px)"})
+                    },1000)
+                   
+                }
+            },
+			{
+                inAn:function(){
+                    var $item4=$("ulJnyl")
+                     setTimeout(function(){
+                        setCss3($item4,{transition:"1s","transform":"translate(0,0)","opacity":1})
+					
+ 					},1000)
+                },
+                outAn:function(){
+                    var  $item4=$("ulJnyl");
+                  
+					  setTimeout(function(){
+                        setCss3($item4,{transition:"1s","transform":"translate(0,200px)","opacity":0})
+                    },1000)
+                   
+                }
+            },
+			{
+                inAn:function(){
+                    var $item5=$("dnzs")
+                     setTimeout(function(){
+                        setCss3($item5,{transition:"1s","transform":"translate(0,0) rotate(0)"})
+					
+ 					},1000)
+                },
+                outAn:function(){
+                    var  $item5=$("dnzs");
+                  
+					  setTimeout(function(){
+                        setCss3($item5,{transition:"1s","transform":"translate(200px,-200px)  rotate(360deg)"})
+                    },1000)
+                   
+                }
+            },
+			{
+                inAn:function(){
+                    var $item6=$("item6")
+                     setTimeout(function(){
+                        setCss3($item6,{transition:"1s","transform":"scale(1,1)"})
+					
+ 					},1000)
+                },
+                outAn:function(){
+                    var  $item6=$("item6");
+                  
+					  setTimeout(function(){
+                        setCss3($item6,{transition:"1s","transform":"scale(0.5,0.5)"})
+                    },1000)
+                   
+                }
+            }
+        ];
+
+		
+        for(i=0;i<pageEvent.length;i++){
+            pageEvent[i].outAn()
+        }
+		pageEvent[0].inAn()
+        //第一个页面事件
+       
 });
 
 

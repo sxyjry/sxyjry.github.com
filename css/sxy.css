@@ -35,6 +35,7 @@ iframe{border:none;}
 /*每一屏布局注意*/
 .item{}
 /*第一屏*/
+
 .page1_box{position:relative;}
 .page1_box .word1{position:relative;}
 .page1_box .word1 li{color:white; font-size:14px; border:2px #FFF solid; border-radius:5px; box-shadow:0 0 15px #FFF; word-wrap:break-word; position:absolute; overflow:hidden; padding:5px; box-sizing:border-box;}
@@ -143,10 +144,7 @@ iframe{border:none;}
 	}
 }
 .page2_box .shake{width:28px;height:23px; background:url(../images/shake.png) no-repeat center;position:absolute;right:40px;top:15px;-webkit-transform-origin:left bottom; -webkit-animation:shake 1.5s infinite;animation:shake 1.5s infinite;transform-origin:left bottom;}
-.page2_box .showbox>li{float:left; padding:80px 20px 20px;}
-.page2_box .showbox>li:nth-of-type(1){ transform:rotate(-15deg);-webkit-transform:rotate(-15deg);}
-.page2_box .showbox>li:nth-of-type(2){}
-.page2_box .showbox>li:nth-of-type(3){ transform:rotate(15deg);-webkit-transform:rotate(15deg);}
+.page2_box .showbox>li{float:left; padding:10px 20px 20px;}
 .page2_box .showbox>li>p{background:rgba(255,255,255,0.5); padding:10px 0; text-align:center; line-height:22px;}
 /*第三屏*/
 .page3_box .showbox{width:1200px;height:100%; overflow:hidden;margin:0 auto;}
@@ -162,7 +160,7 @@ iframe{border:none;}
 .page3_box .showbox>li:hover .mask{display:block;}
 /*第四屏*/
 .maskContact{position:relative;width:100%;height:100%;}
-#ulJnyl{width:1110px;height:100%;position:absolute; left:50%;margin-left:-550px;top:76px;}
+#ulJnyl{width:1110px;height:100%;position:absolute; left:50%;margin-left:-550px;top:26px;}
 #ulJnyl li{float:left; position:relative;width:200px; height:250px; background:rgba(255,255,255,0.3); margin:10px;text-align:center;overflow:hidden; border-radius:6px; border:1px solid #ccc; color:#fff;}
 #ulJnyl li div{width:100%;height:100%;}
 #ulJnyl li div h3{width:100%;height:50px;line-height:50px; padding-top:60px;color:#fff;font-size:30px; font-weight:normal;}
@@ -282,7 +280,7 @@ div.fkydMain span{
     background:#F95E28;
 }
 /*第六屏*/
-.info{width:800px;height:500px; margin:0 auto;margin-top:100px; background:rgba(232,125,127,1); color:#fff; text-align:center;padding-top:50px;}
+.info{width:800px;height:500px; margin:0 auto;margin-top:30px; background:rgba(232,125,127,1); color:#fff; text-align:center;padding-top:50px;}
 .info p{height:36px; line-height:36px; font-size:18px; margin:6px;}
 .info h3{display:inline-block;border-radius:4px; border:1px solid #fff;width:300px;height:38px; line-height:38px;padding:5px; margin-bottom:6px;}
 .info h3:hover{background:rgba(255,255,255,0.6); color:#e66163; border-color:#fff; cursor:pointer;}

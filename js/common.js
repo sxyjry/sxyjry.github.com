@@ -196,6 +196,20 @@ function setStyle(obj, json){
 		}
 	}
 };
+function setCss3(obj,opt){
+    var s ="";
+    try{
+        for(var attr in opt){
+            s = attr.charAt(0).toUpperCase()+attr.substring(1)
+            obj.style["webkit"+s]=opt[attr];
+            obj.style["moz"+s]=opt[attr];
+            obj.style["o"+s]=opt[attr];
+            obj.style[attr]=opt[attr];
+        }
+      }catch(e){
+
+    }
+}
 function setStyle3(obj, name, value){
 	obj.style['Webkit'+name.charAt(0).toUpperCase()+name.substring(1)]=value;
 	obj.style['Moz'+name.charAt(0).toUpperCase()+name.substring(1)]=value;
